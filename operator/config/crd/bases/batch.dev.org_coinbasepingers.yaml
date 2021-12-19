@@ -1,0 +1,88 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: coinbasepingers.batch.dev.org
+spec:
+  group: batch.dev.org
+  names:
+    kind: CoinbasePinger
+    listKind: CoinbasePingerList
+    plural: coinbasepingers
+    singular: coinbasepinger
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: CoinbasePinger is the Schema for the coinbasepingers API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: CoinbasePingerSpec defines the desired state of CoinbasePinger
+            properties:
+              endpoint:
+                type: string
+              interval:
+                type: string
+            required:
+            - endpoint
+            - interval
+            type: object
+          status:
+            description: CoinbasePingerStatus defines the observed state of CoinbasePinger
+            properties:
+              conditions:
+                items:
+                  description: Condition contains webping result fetched from a pod
+                    metadata
+                  properties:
+                    message:
+                      type: string
+                    pingTime:
+                      format: date-time
+                      type: string
+                    reason:
+                      type: string
+                    status:
+                      type: boolean
+                    type:
+                      type: string
+                  required:
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            required:
+            - conditions
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

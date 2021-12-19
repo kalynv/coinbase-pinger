@@ -1,0 +1,16 @@
+domain: dev.org
+layout:
+- go.kubebuilder.io/v3
+projectName: operator
+repo: github.com/kalynv/coinbase-pinger/operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: dev.org
+  group: batch
+  kind: CoinbasePinger
+  path: github.com/kalynv/coinbase-pinger/operator/api/v1
+  version: v1
+version: "3"

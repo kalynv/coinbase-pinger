@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-webapp-pinger
+spec:
+  serviceAccountName: sample-webping-pod-updater
+  restartPolicy: Never
+  containers:
+    - name: pinger
+      image: kalynv/webapp-pinger
+      env:
+        - name: BASE_URL
+          value: "https://api.coinbase.com/v2"
+      command: ["/webping", "/prices/BTC-USD/buy"]
+      volumeMounts:
+        - name: podinfo
+          mountPath: /etc/podinfo
+  volumes:
+    - name: podinfo
+      downwardAPI:
+        items:
+          - path: "namespace"
+            fieldRef:
+              fieldPath: metadata.namespace
+          - path: "name"
+            fieldRef:
+              fieldPath: metadata.name

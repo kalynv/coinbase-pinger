@@ -1,0 +1,7 @@
+apiVersion: batch.dev.org/v1
+kind: CoinbasePinger
+metadata:
+  name: coinbasepinger-sample
+spec:
+  interval: "60s"
+  endpoint: "/prices/BTC-USD/buy"
