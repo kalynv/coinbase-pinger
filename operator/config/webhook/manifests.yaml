@@ -1,0 +1,28 @@
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-batch-dev-org-v1-coinbasepinger
+  failurePolicy: Fail
+  name: vcoinbasepinger.kb.io
+  rules:
+  - apiGroups:
+    - batch.dev.org
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - coinbasepingers
+  sideEffects: None
